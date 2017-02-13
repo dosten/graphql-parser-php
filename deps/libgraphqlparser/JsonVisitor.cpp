@@ -26,12 +26,15 @@ void JsonVisitor::printLocation(const yy::location &location)
        << ",\"end\":" << location.end.column  << '}';
 }
 
-void JsonVisitor::startPrintingNode(const char *kind, const yy::location &location) {
+void JsonVisitor::startPrintingNodeWithoutTrailingComma(const char *kind, const yy::location &location) {
   out_.str("");
   out_ << "{\"kind\":\"" << kind << "\",\"loc\":";
   printLocation(location);
+}
+
+void JsonVisitor::startPrintingNode(const char *kind, const yy::location &location) {
+  startPrintingNodeWithoutTrailingComma(kind, location);
   out_ << ',';
-  return;
 }
 
 void JsonVisitor::printChildList(
@@ -346,6 +349,12 @@ void JsonVisitor::endVisitStringValue(const StringValue &stringValue) {
 
 void JsonVisitor::endVisitEnumValue(const EnumValue &enumValue) {
   endVisitValueRepresentedAsString("EnumValue", enumValue);
+}
+
+void JsonVisitor::endVisitNullValue(const NullValue &nullValue) {
+  startPrintingNodeWithoutTrailingComma("NullValue", nullValue.getLocation());
+  out_ << '}';
+  printed_.back().emplace_back(out_.str());
 }
 
 void JsonVisitor::endVisitBooleanValue(const BooleanValue &booleanValue) {
