@@ -44,8 +44,8 @@ ADD_LIBRARY(graphqlparser SHARED
   c/GraphQLAstVisitor.h
   c/GraphQLAstVisitor.cpp
   c/GraphQLParser.cpp
-  parser.tab.hpp
   parser.tab.cpp
+  parser.tab.hpp
   lexer.cpp
   lexer.h
   GraphQLParser.cpp)

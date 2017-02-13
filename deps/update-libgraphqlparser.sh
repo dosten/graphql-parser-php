@@ -8,6 +8,6 @@ echo "Downloading $URL"
 curl -L $URL > /tmp/libgraphqlparser.tar.gz
 tar zxvf /tmp/libgraphqlparser.tar.gz
 rm -rf libgraphqlparser
-mv libgraphqlparser-${VERSION} libgraphqlparser
+mv libgraphqlparser-* libgraphqlparser
 
 echo "Use git status, add all files and commit changes."
