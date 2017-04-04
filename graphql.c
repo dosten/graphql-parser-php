@@ -44,7 +44,7 @@ PHP_METHOD(Parser, parse)
 		return;
 	}
 
-	ast = graphql_parse_string(input, &error);
+	ast = graphql_parse_string_with_experimental_schema_support(input, &error);
 
 	if (ast == NULL) {
 #if PHP_VERSION_ID < 50505
